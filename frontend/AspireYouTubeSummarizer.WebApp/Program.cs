@@ -1,6 +1,10 @@
-using AspireYouTubeSummariser.WebApp.Components;
+using AspireYouTubeSummarizer.WebApp.Clients;
+using AspireYouTubeSummarizer.WebApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// TODO: URI 변경하기
+builder.Services.AddHttpClient<IApiAppClient, ApiAppClient>(p => p.BaseAddress = new Uri("http://localhost:5050"));
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
