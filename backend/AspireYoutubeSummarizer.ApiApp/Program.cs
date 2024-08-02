@@ -6,6 +6,7 @@ using Azure.AI.OpenAI;
 using Microsoft.AspNetCore.Mvc;
 using OpenAI.Chat;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -100,7 +101,8 @@ class YouTubeSummariserService(IYouTubeVideo youtube, AzureOpenAIClient openai, 
         var messages = new List<ChatMessage>()
         {
             new SystemChatMessage(this._config["Prompt:System"]),
-            new SystemChatMessage($"Here's the transcript. Summarise it in 5 bullet point items in the given language code of \"{req.SummaryLanguageCode}\"."),
+            new SystemChatMessage(
+                $"Here's the transcript. Summarise it in 5 bullet point items in the given language code of \"{req.SummaryLanguageCode}\"."),
             new UserChatMessage(caption),
         };
 
