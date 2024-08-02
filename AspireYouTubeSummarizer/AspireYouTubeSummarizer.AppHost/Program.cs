@@ -8,6 +8,7 @@ var apiapp = builder.AddProject<Projects.AspireYoutubeSummarizer_ApiApp>("apiapp
                      .WithEnvironment("OpenAI__DeploymentName", config["OpenAI:DeploymentName"]); ;
 
 builder.AddProject<Projects.AspireYouTubeSummarizer_WebApp>("webapp")
+       .WithExternalHttpEndpoints()
        .WithReference(apiapp);
 
 builder.Build().Run();
