@@ -46,7 +46,6 @@ jobs:
           $appsettings.OpenAI.ApiKey = "${{ secrets.AZURE_OPENAI_API_KEY }}"
           $appsettings.OpenAI.DeploymentName = "${{ secrets.AZURE_OPENAI_DEPLOYMENT_NAME }}"
           $appsettings | ConvertTo-Json -Depth 100 | Out-File -FilePath ./AspireYouTubeSummarizer.AppHost/appsettings.json -Encoding utf8 -Force
-          popd
 
       - name: Install azd
         uses: Azure/setup-azd@v1.0.0
@@ -75,9 +74,9 @@ jobs:
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Provision Infrastructure
-        run: azd provision --no-prompt
-        env:
-          AZD_INITIAL_ENVIRONMENT_CONFIG: ${{ secrets.AZD_INITIAL_ENVIRONMENT_CONFIG }}
+        run: |
+          azd provision --no-prompt
 
       - name: Deploy Application
-        run: azd deploy --no-prompt
+        run: |
+          azd deploy --no-prompt
