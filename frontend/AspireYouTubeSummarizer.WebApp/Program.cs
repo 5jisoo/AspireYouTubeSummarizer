@@ -3,14 +3,17 @@ using AspireYouTubeSummarizer.WebApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// TODO: URI 변경하기
-builder.Services.AddHttpClient<IApiAppClient, ApiAppClient>(p => p.BaseAddress = new Uri("http://localhost:5050"));
+builder.AddServiceDefaults();
+
+builder.Services.AddHttpClient<IApiAppClient, ApiAppClient>(p => p.BaseAddress = new Uri("https+http://apiapp"));
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

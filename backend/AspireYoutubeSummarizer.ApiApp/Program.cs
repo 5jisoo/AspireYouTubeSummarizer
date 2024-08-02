@@ -8,6 +8,8 @@ using OpenAI.Chat;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddHttpClient<IYouTubeVideo, YouTubeVideo>();
 builder.Services.AddScoped<AzureOpenAIClient>(sp =>
 {
@@ -27,6 +29,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -89,17 +93,17 @@ class YouTubeSummariserService(IYouTubeVideo youtube, AzureOpenAIClient openai, 
         Subtitle subtitle = await this._youtube
             .ExtractSubtitleAsync(req.YouTubeLinkUrl, req.VideoLanguageCode)
             .ConfigureAwait(false);
-        
+
         string caption = subtitle.Content.Select(p => p.Text).Aggregate((a, b) => $"{a}\n{b}");
         var chat = this._openai.GetChatClient(this._config["OpenAI:DeploymentName"]);
-        
+
         var messages = new List<ChatMessage>()
         {
             new SystemChatMessage(this._config["Prompt:System"]),
             new SystemChatMessage($"Here's the transcript. Summarise it in 5 bullet point items in the given language code of \"{req.SummaryLanguageCode}\"."),
             new UserChatMessage(caption),
         };
-        
+
         var options = new ChatCompletionOptions()
         {
             MaxTokens = int.TryParse(this._config["Prompt:MaxTokens"], out var maxTokens) ? maxTokens : 3000,
