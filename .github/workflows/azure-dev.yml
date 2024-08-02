@@ -7,9 +7,6 @@ on:
       - main
       - master
 
-    paths:
-      - "AspireYoutubeSummarizer/**/*"
-
 # GitHub Actions workflow to deploy to Azure using azd
 # To configure required secrets for connecting to Azure, simply run `azd pipeline config`
 
@@ -43,7 +40,7 @@ jobs:
       - name: Update appsettings.json
         shell: pwsh
         run: |
-          pushd ./AspireYoutubeSummarizer
+          pushd ./AspireYouTubeSummarizer
           $appsettings = Get-Content -Path ./AspireYouTubeSummarizer.AppHost/appsettings.json | ConvertFrom-Json
           $appsettings.OpenAI.Endpoint = "${{ secrets.AZURE_OPENAI_ENDPOINT }}"
           $appsettings.OpenAI.ApiKey = "${{ secrets.AZURE_OPENAI_API_KEY }}"
