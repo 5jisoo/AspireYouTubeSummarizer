@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\AspireYoutubeSummarizer\AspireYouTubeSummarizer.ServiceDefaults\AspireYouTubeSummarizer.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\..\AspireYouTubeSummarizer\AspireYouTubeSummarizer.ServiceDefaults\AspireYouTubeSummarizer.ServiceDefaults.csproj" />
     </ItemGroup>
 
 </Project>
