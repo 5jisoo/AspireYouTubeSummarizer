@@ -80,6 +80,6 @@ jobs:
 
       - name: Deploy Application
         run: |
-          pushd ./AspireYouTubeSummarizer
+          pushd ./
           azd deploy --no-prompt
           popd
